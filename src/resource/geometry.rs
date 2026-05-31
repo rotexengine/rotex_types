@@ -1,3 +1,4 @@
+/// Vertex attribute component format.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum VertexFormat {
     Float32,
@@ -8,6 +9,7 @@ pub enum VertexFormat {
 }
 
 impl VertexFormat {
+    /// Size of one attribute value in bytes.
     pub fn size(&self) -> u64 {
         match self {
             Self::Float32 => 4,
@@ -19,6 +21,7 @@ impl VertexFormat {
     }
 }
 
+/// Single vertex input attribute binding.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct VertexAttribute {
     pub location: u32,
@@ -26,12 +29,14 @@ pub struct VertexAttribute {
     pub offset: u64,
 }
 
+/// Vertex buffer layout describing stride and attributes.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct VertexBufferLayout {
     pub array_stride: u64,
     pub attributes: Vec<VertexAttribute>,
 }
 
+/// Index buffer element format.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum IndexFormat {
     Uint16,

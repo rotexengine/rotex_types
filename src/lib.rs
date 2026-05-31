@@ -1,3 +1,5 @@
+//! Shared descriptor and identifier types for rotexengine tools.
+
 pub mod device;
 pub mod frame;
 mod internal;

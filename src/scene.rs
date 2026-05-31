@@ -1,6 +1,7 @@
 use crate::internal::math::identity4;
 use crate::resource::ids::{MaterialId, MeshId};
 
+/// View and projection matrices for scene rendering.
 #[derive(Debug, Clone, Copy)]
 pub struct CameraDescriptor {
     pub view: [[f32; 4]; 4],
@@ -16,6 +17,7 @@ impl Default for CameraDescriptor {
     }
 }
 
+/// A mesh drawn with a material and model transform.
 #[derive(Debug, Clone, Copy)]
 pub struct MeshInstanceDescriptor {
     pub mesh: MeshId,
@@ -24,6 +26,7 @@ pub struct MeshInstanceDescriptor {
 }
 
 impl MeshInstanceDescriptor {
+    /// Creates an instance with an identity transform.
     pub fn new(mesh: MeshId, material: MaterialId) -> Self {
         Self {
             mesh,
@@ -32,12 +35,14 @@ impl MeshInstanceDescriptor {
         }
     }
 
+    /// Sets the model matrix.
     pub fn with_transform(mut self, transform: [[f32; 4]; 4]) -> Self {
         self.transform = transform;
         self
     }
 }
 
+/// Camera and mesh instances submitted for rendering.
 #[derive(Debug, Clone)]
 pub struct SceneDescriptor {
     pub camera: CameraDescriptor,
@@ -45,6 +50,7 @@ pub struct SceneDescriptor {
 }
 
 impl SceneDescriptor {
+    /// Creates a scene with the default camera and the given instances.
     pub fn new(instances: Vec<MeshInstanceDescriptor>) -> Self {
         Self {
             camera: CameraDescriptor::default(),
@@ -52,6 +58,7 @@ impl SceneDescriptor {
         }
     }
 
+    /// Sets the scene camera.
     pub fn with_camera(mut self, camera: CameraDescriptor) -> Self {
         self.camera = camera;
         self

@@ -1,5 +1,6 @@
 use raw_window_handle::{RawDisplayHandle, RawWindowHandle};
 
+/// Vulkan queue family category.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum QueueCategory {
     Graphics,
@@ -7,12 +8,14 @@ pub enum QueueCategory {
     Transfer,
 }
 
+/// Request for one or more queues of a given [QueueCategory].
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct QueueRequest {
     pub category: QueueCategory,
     pub count: u32,
 }
 
+/// Width and height in pixels.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub struct Extent2D {
     pub width: u32,
@@ -20,6 +23,7 @@ pub struct Extent2D {
 }
 
 impl Extent2D {
+    /// Returns `self` with `width` and `height` clamped to at least 1.
     pub fn clamped(self) -> Self {
         Self {
             width: self.width.max(1),
@@ -28,6 +32,7 @@ impl Extent2D {
     }
 }
 
+/// Native window surface binding and drawable size.
 #[derive(Debug, Clone, Copy)]
 pub struct SurfaceDescriptor {
     pub display_handle: RawDisplayHandle,
@@ -35,6 +40,7 @@ pub struct SurfaceDescriptor {
     pub extent: Extent2D,
 }
 
+/// Vulkan instance creation parameters.
 #[derive(Debug, Clone)]
 pub struct InstanceDescriptor {
     pub enable_validation: bool,
@@ -50,6 +56,7 @@ impl Default for InstanceDescriptor {
     }
 }
 
+/// Optional Vulkan device features requested at creation.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct DeviceFeatures {
     pub sampler_anisotropy: bool,
@@ -57,6 +64,7 @@ pub struct DeviceFeatures {
     pub wide_lines: bool,
 }
 
+/// Logical device creation parameters.
 #[derive(Debug, Clone)]
 pub struct DeviceDescriptor {
     pub enable_swapchain: bool,
